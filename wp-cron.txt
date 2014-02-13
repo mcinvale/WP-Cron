@@ -1,0 +1,10 @@
+#!/bin/sh
+# find all root level WP installs
+locate public_html/wp-config.php | awk -F'/' '{ print $5 }' | sort | uniq > /tmp/wp-cron.txt
+
+while read WP
+do
+	wget "http://"$WP"/wp-cron.php?doing_wp_cron" -O /dev/null -q
+	sleep 2
+
+done < /tmp/wp-cron.txt
