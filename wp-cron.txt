@@ -1,6 +1,7 @@
 #!/bin/sh
 # find all root level WP installs
 locate public_html/wp-config.php | awk -F'/' '{ print $5 }' | sort | uniq > /tmp/wp-cron.txt
+locate --regex "public_html/[a-z0-9]{1,8}/wp-config.php" | awk -F'/' '{ print $7"."$5 }'| sort | uniq >> /tmp/wp-cron.txt
 
 while read WP
 do
